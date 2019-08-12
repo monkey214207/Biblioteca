@@ -17,8 +17,6 @@ public class Biblioteca {
     private Scanner scanner = new Scanner(System.in);
 
 
-
-
     public Biblioteca(PrintStream printStream) {
         initBookList();
         initMenuList();
@@ -38,7 +36,8 @@ public class Biblioteca {
 
     private void initMenuList(){
         menuList.add("1.List of books");
-        menuList.add("2.check out a book");
+        menuList.add("2.Check out a book");
+        menuList.add("3.Return a book");
         menuList.add("#.quit");
     }
 
@@ -66,6 +65,9 @@ public class Biblioteca {
                 case "2":
                     checkoutABook();
                     break;
+                case "3":
+                    returnABook();
+                    break;
                 case "#":
                     printStream.println("Bye!");
                     flag = false;
@@ -86,6 +88,7 @@ public class Biblioteca {
 
     public void checkoutABook(){
         while(true){
+            printStream.println("----------Books List---------");
             printBookList();
             printStream.println("Please input the book id you want(return to the menu please input #):");
             Integer id;
@@ -94,15 +97,37 @@ public class Biblioteca {
             }catch(Exception e){
                 break;
             }
-            if(!checkoutList.contains(id)){
-                printStream.println("success! Now you can checkout this book\n");
+            if(!checkoutList.contains(id) & id<= bookNum & id > 0){
+                printStream.println("Thank you! Enjoy the book");
                 actualBookNum --;
                 checkoutList.add(id);
             }
             else{
-                printStream.println("Wrong number or this booked has been check-out!!\n");
+                printStream.println("Sorry,that book is not available.");
             }
         }
 
+    }
+
+    public void returnABook(){
+        while(true){
+            printStream.println("Please input the book id you want to return(return to the menu please input #):");
+            Integer id;
+            try{
+                id = Integer.parseInt(scanner.nextLine());
+            }catch(Exception e){
+                break;
+            }
+
+            if(checkoutList.contains(id)){
+                printStream.println("Thank you for returning the book");
+                printStream.println(bookList.get(id-1));
+                actualBookNum ++;
+                checkoutList.remove(id);
+            }
+            else{
+                printStream.println("That is not a valid book to return.");
+            }
+        }
     }
 }
