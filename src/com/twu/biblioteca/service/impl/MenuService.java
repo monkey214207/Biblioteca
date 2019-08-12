@@ -11,7 +11,7 @@ public class MenuService implements IBibliotecaService {
     private MenuPage page = new MenuPage();
     private PrintStream printStream = System.out;
     private Scanner scanner = new Scanner(System.in);
-    private String command;
+    private int select;
 
     @Override
     public Response exec() {
@@ -19,7 +19,13 @@ public class MenuService implements IBibliotecaService {
         Response response = new Response();
         String command = scanner.nextLine();
         try{
-            response.setData(Integer.parseInt(command));
+            select = Integer.parseInt(command);
+            if(select <= 0 | select > page.getMenuList().size()-1){
+                page.printError(printStream);
+            }
+            else{
+                response.setData(select);
+            }
         }catch(Exception e){
             if(command == "#"){
                 response.setData(-1);

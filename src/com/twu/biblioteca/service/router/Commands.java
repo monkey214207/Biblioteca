@@ -1,22 +1,36 @@
 package com.twu.biblioteca.service.router;
 
 public enum Commands {
-    HOME(100,"home"),
-    MENU(101,"menu"),
-    BOOKLIST(1,"bookList"),
-    CHECKOUT(2,"checkout"),
-    RETURN(3,"return");
+    BOOKLIST{
+        @Override
+        public void action(CommandRouter commandRouter) {
+            commandRouter.dispatch(BOOKLIST.toString());
+        }
+    },
+    CHECKOUT {
+        @Override
+        public void action(CommandRouter commandRouter) {
+            commandRouter.dispatch(CHECKOUT.toString());
+        }
+    },
+    RETURN {
+        @Override
+        public void action(CommandRouter commandRouter) {
+            commandRouter.dispatch(RETURN.toString());
+        }
+    },
+    HOME {
+        @Override
+        public void action(CommandRouter commandRouter) {
 
-    private int index;
-    private String name;
+        }
+    },
+    MENU {
+        @Override
+        public void action(CommandRouter commandRouter) {
 
-    public int getIndex() {
-        return index;
-    }
-
-    Commands(int index, String name) {
-        this.index = index;
-        this.name = name;
-    }
+        }
+    };
+    public abstract void action(CommandRouter commandRouter);
 
 }

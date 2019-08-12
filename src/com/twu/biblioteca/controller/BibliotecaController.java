@@ -8,7 +8,6 @@ import com.twu.biblioteca.service.router.Commands;
 
 public class BibliotecaController {
     private  CommandRouter commandRouter;
-    boolean flag = true;
     Response response = null;
 
     public BibliotecaController() {
@@ -26,20 +25,17 @@ public class BibliotecaController {
 
     public void process() {
         commandRouter.dispatch(Commands.HOME.toString());
-        while (flag){
+        while (true){
             response = commandRouter.dispatch(Commands.MENU.toString());
-            System.out.println(response.getData());
-            if(response.getData()==-1){
-                flag = false;
+            int selectedNum = response.getData();
+            if(selectedNum == -1){
+                break;
             }
-            if(response.getData()==Commands.BOOKLIST.getIndex()){
-                commandRouter.dispatch(Commands.BOOKLIST.toString());
-            }
-            if(response.getData()==Commands.CHECKOUT.getIndex()){
-                commandRouter.dispatch(Commands.CHECKOUT.toString());
-            }
-            if(response.getData()==Commands.RETURN.getIndex()){
-                commandRouter.dispatch(Commands.RETURN.toString());
+            for (Commands command : Commands.values()) {
+                if (command.ordinal() + 1 == selectedNum) {
+                    command.action(commandRouter);
+                    break;
+                }
             }
         }
     }

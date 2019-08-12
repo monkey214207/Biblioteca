@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuPage {
+    public List<String> getMenuList() {
+        return menuList;
+    }
+
     private List<String> menuList = new ArrayList<>();
 
     public MenuPage() {
