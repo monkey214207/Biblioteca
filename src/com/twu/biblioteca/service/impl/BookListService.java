@@ -12,11 +12,10 @@ public class BookListService implements IBibliotecaService {
 
     private IBibliotecaDao dao = BooksDao.getInstance();
     private BookListPage page = new BookListPage();
-    private PrintStream printStream = System.out;
 
 
     @Override
-    public Response exec() {
+    public Response exec(PrintStream printStream) {
         page.print(printStream);
         dao.bookList(printStream);
         return new Response();

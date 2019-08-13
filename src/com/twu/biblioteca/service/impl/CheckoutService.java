@@ -12,11 +12,10 @@ import java.util.Scanner;
 public class CheckoutService implements IBibliotecaService {
     private IBibliotecaDao dao = BooksDao.getInstance();
     CheckoutPage page = new CheckoutPage();
-    private PrintStream printStream = System.out;
     private Scanner scanner = new Scanner(System.in);
 
     @Override
-    public Response exec() {
+    public Response exec(PrintStream printStream) {
         while(true){
             page.printTip(printStream);
             Integer id;

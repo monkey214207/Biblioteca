@@ -9,12 +9,11 @@ import java.util.Scanner;
 
 public class MenuService implements IBibliotecaService {
     private MenuPage page = new MenuPage();
-    private PrintStream printStream = System.out;
     private Scanner scanner = new Scanner(System.in);
     private int select;
 
     @Override
-    public Response exec() {
+    public Response exec(PrintStream printStream) {
         page.print(printStream);
         Response response = new Response();
         String command = scanner.nextLine();

@@ -13,6 +13,6 @@ public class CommandRouter {
 
     public Response dispatch(String command){
         IBibliotecaService service = router.get(command);
-        return service.exec();
+        return service.exec(System.out);
     }
 }

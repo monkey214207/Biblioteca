@@ -8,10 +8,9 @@ import java.io.PrintStream;
 
 public class HomeService implements IBibliotecaService {
     private HomePage page = new HomePage();
-    private PrintStream printStream = System.out;
 
     @Override
-    public Response exec() {
+    public Response exec(PrintStream printStream) {
         page.print(printStream);
         return new Response();
     }

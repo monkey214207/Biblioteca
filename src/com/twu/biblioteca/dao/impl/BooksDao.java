@@ -71,9 +71,11 @@ public class BooksDao implements IBibliotecaDao {
 
     @Override
     public void bookList(PrintStream printStream) {
+        String printList = "";
         for(Book book:bookList){
             if(!checkoutList.contains(book.getId()))
-                printStream.println(book);
+                printList += book+"\n";
         }
+        printStream.println(printList);
     }
 }
