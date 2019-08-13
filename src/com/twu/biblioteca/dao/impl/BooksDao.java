@@ -31,13 +31,11 @@ public class BooksDao implements IBibliotecaDao {
         return booksDao;
     }
 
-    @Override
-    public void init() {
+    private void init() {
         add("Agile","Martin Fowler","1993");
         add("Agile2","Martin Fowler","1994");
     }
 
-    @Override
     public void add(String name, String author, String year) {
         bookNum ++;
         actualBookNum ++;

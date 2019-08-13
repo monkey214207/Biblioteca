@@ -19,6 +19,26 @@ public enum Commands {
             commandRouter.dispatch(RETURN.toString());
         }
     },
+
+    MOVIELIST{
+        @Override
+        public void action(CommandRouter commandRouter) {
+            commandRouter.dispatch(MOVIELIST.toString());
+        }
+    },
+    CHECKOUTMOVIE {
+        @Override
+        public void action(CommandRouter commandRouter) {
+            commandRouter.dispatch(CHECKOUTMOVIE.toString());
+        }
+    },
+    RETURNMOVIE {
+        @Override
+        public void action(CommandRouter commandRouter) {
+            commandRouter.dispatch(RETURNMOVIE.toString());
+        }
+    },
+
     HOME {
         @Override
         public void action(CommandRouter commandRouter) {

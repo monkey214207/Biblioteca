@@ -21,6 +21,9 @@ public class BibliotecaController {
         commandRouter.register(Commands.BOOKLIST.toString(), new BookListService());
         commandRouter.register(Commands.CHECKOUT.toString(), new CheckoutService());
         commandRouter.register(Commands.RETURN.toString(), new ReturnService());
+        commandRouter.register(Commands.MOVIELIST.toString(), new MovieListService());
+        commandRouter.register(Commands.CHECKOUTMOVIE.toString(), new CheckoutMovieService());
+        commandRouter.register(Commands.RETURNMOVIE.toString(), new ReturnMovieService());
     }
 
     public void process() {

@@ -26,7 +26,8 @@ public class MenuService implements IBibliotecaService {
                 response.setData(select);
             }
         }catch(Exception e){
-            if(command == "#"){
+            if(command.equals("#")){
+                page.printBye(printStream);
                 response.setData(-1);
             }
             else{

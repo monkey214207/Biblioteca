@@ -19,6 +19,9 @@ public class MenuPage {
         menuList.add("1.List of books");
         menuList.add("2.Check out a book");
         menuList.add("3.Return a book");
+        menuList.add("4.List of movies");
+        menuList.add("5.Check out a movie");
+        menuList.add("6.Return a movie");
         menuList.add("#.quit");
     }
 
@@ -31,5 +34,8 @@ public class MenuPage {
     }
     public void printError(PrintStream printStream){
         printStream.println("Please select a valid option!");
+    }
+    public void printBye(PrintStream printStream){
+        printStream.println("Bye!");
     }
 }
