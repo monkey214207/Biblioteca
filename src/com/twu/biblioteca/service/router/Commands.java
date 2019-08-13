@@ -1,5 +1,7 @@
 package com.twu.biblioteca.service.router;
 
+import com.twu.biblioteca.domain.User;
+
 public enum Commands {
     BOOKLIST{
         @Override
@@ -50,7 +52,14 @@ public enum Commands {
         public void action(CommandRouter commandRouter) {
 
         }
+    },
+    LOGIN {
+        @Override
+        public void action(CommandRouter commandRouter) {
+            commandRouter.dispatch(LOGIN.toString());
+        }
     };
+
     public abstract void action(CommandRouter commandRouter);
 
 }

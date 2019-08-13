@@ -18,6 +18,7 @@ public class BibliotecaController {
         commandRouter = new CommandRouter();
         commandRouter.register(Commands.HOME.toString(), new HomeService());
         commandRouter.register(Commands.MENU.toString(), new MenuService());
+        commandRouter.register(Commands.LOGIN.toString(), new LoginService());
         commandRouter.register(Commands.BOOKLIST.toString(), new BookListService());
         commandRouter.register(Commands.CHECKOUT.toString(), new CheckoutService());
         commandRouter.register(Commands.RETURN.toString(), new ReturnService());
@@ -28,9 +29,14 @@ public class BibliotecaController {
 
     public void process() {
         commandRouter.dispatch(Commands.HOME.toString());
+        response = commandRouter.dispatch(Commands.LOGIN.toString());
+        int selectedNum = response.getData();
+        if(selectedNum == -1){
+            return;
+        }
         while (true){
             response = commandRouter.dispatch(Commands.MENU.toString());
-            int selectedNum = response.getData();
+            selectedNum = response.getData();
             if(selectedNum == -1){
                 break;
             }
