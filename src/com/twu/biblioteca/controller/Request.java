@@ -2,8 +2,7 @@ package com.twu.biblioteca.controller;
 
 import com.twu.biblioteca.domain.User;
 
-public class Response {
-    private int data;
+public class Request {
     private User user;
 
     public User getUser() {
@@ -12,13 +11,5 @@ public class Response {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public int getData() {
-        return data;
-    }
-
-    public void setData(int data) {
-        this.data = data;
     }
 }

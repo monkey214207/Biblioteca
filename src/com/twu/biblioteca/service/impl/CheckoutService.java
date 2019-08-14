@@ -1,5 +1,6 @@
 package com.twu.biblioteca.service.impl;
 
+import com.twu.biblioteca.controller.Request;
 import com.twu.biblioteca.dao.IBibliotecaDao;
 import com.twu.biblioteca.dao.impl.BooksDao;
 import com.twu.biblioteca.controller.Response;
@@ -15,7 +16,7 @@ public class CheckoutService implements IBibliotecaService {
     private Scanner scanner = new Scanner(System.in);
 
     @Override
-    public Response exec(PrintStream printStream) {
+    public Response exec(PrintStream printStream, Request request) {
         while(true){
             page.printTip(printStream);
             Integer id;

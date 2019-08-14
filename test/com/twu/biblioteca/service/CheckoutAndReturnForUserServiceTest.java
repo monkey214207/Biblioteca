@@ -1,9 +1,8 @@
 package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.controller.Request;
-import com.twu.biblioteca.service.impl.BookListService;
-import com.twu.biblioteca.service.impl.CheckoutService;
-import com.twu.biblioteca.service.impl.ReturnService;
+import com.twu.biblioteca.domain.User;
+import com.twu.biblioteca.service.impl.*;
 import org.junit.*;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 import org.junit.runners.MethodSorters;
@@ -21,11 +20,13 @@ import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emp
 import static org.mockito.Mockito.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CheckoutAndReturnServiceTest {
-    private CheckoutService checkoutService;
-    private ReturnService returnService;
+public class CheckoutAndReturnForUserServiceTest {
+    private CheckoutForUserService checkoutService;
+    private ReturnForUserService returnService;
+    private UserInfoService userInfoService;
     private PrintStream printStream;
     private Request request;
+    private User user;
 
     @Rule
     public final TextFromStandardInputStream systemInMock
@@ -34,10 +35,13 @@ public class CheckoutAndReturnServiceTest {
 
     @Before
     public void setUp(){
-        checkoutService = new CheckoutService();
-        returnService = new ReturnService();
+        checkoutService = new CheckoutForUserService();
+        returnService = new ReturnForUserService();
+        userInfoService = new UserInfoService();
         printStream = mock(PrintStream.class);
-        request = mock(Request.class);
+        request = new Request();
+        user = new User("001-0001","1234");
+        request.setUser(user);
     }
 
 
@@ -50,26 +54,48 @@ public class CheckoutAndReturnServiceTest {
         verify(printStream,atLeast(1)).println("Please input the book id you want(return to the menu please input #):");
         verify(printStream,atLeast(1)).println("Thank you! Enjoy the book");
         verify(printStream,atLeast(1)).println("Please input the book id you want(return to the menu please input #):");
+        userInfoService.exec(printStream,request);
+        verify(printStream,atLeast(1)).println("Here is your profile:");
+        verify(printStream,atLeast(1)).println("User{" +
+                "id=" + user.getId() +
+                ", password='" + user.getPassword() + '\'' +
+                '}'+"\n"+"your checkout books: "+"2");
+
     }
 
     @Test
     public void test02_shouldPrintCheckoutError(){
+        user.getCheckoutBooks().add(2);  //Be careful, user object is not singleton
         systemInMock.provideLines("#");
         systemInMock.provideLines("2");
         checkoutService.exec(printStream,request);
         verify(printStream,atLeast(1)).println("Please input the book id you want(return to the menu please input #):");
         verify(printStream,atLeast(1)).println("Sorry,that book is not available.");
         verify(printStream,atLeast(1)).println("Please input the book id you want(return to the menu please input #):");
+        userInfoService.exec(printStream,request);
+        verify(printStream,atLeast(1)).println("Here is your profile:");
+        verify(printStream,atLeast(1)).println("User{" +
+                "id=" + user.getId() +
+                ", password='" + user.getPassword() + '\'' +
+                '}'+"\n"+"your checkout books: "+"2");
     }
 
     @Test
     public void test03_shouldPrintReturnSuccess(){
+        user.getCheckoutBooks().add(2);  //Be careful, user object is not singleton
+
         systemInMock.provideLines("#");
         systemInMock.provideLines("2");
         returnService.exec(printStream,request);
         verify(printStream,atLeast(1)).println("Please input the book id you want to return(return to the menu please input #):");
         verify(printStream,atLeast(1)).println("Thank you for returning the book");
         verify(printStream,atLeast(1)).println("Please input the book id you want to return(return to the menu please input #):");
+        userInfoService.exec(printStream,request);
+        verify(printStream,atLeast(1)).println("Here is your profile:");
+        verify(printStream,atLeast(1)).println("User{" +
+                "id=" + user.getId() +
+                ", password='" + user.getPassword() + '\'' +
+                '}'+"\n"+"your checkout books: ");
     }
 
     @Test
@@ -80,6 +106,12 @@ public class CheckoutAndReturnServiceTest {
         verify(printStream,atLeast(1)).println("Please input the book id you want to return(return to the menu please input #):");
         verify(printStream,atLeast(1)).println("That is not a valid book to return.");
         verify(printStream,atLeast(1)).println("Please input the book id you want to return(return to the menu please input #):");
+        userInfoService.exec(printStream,request);
+        verify(printStream,atLeast(1)).println("Here is your profile:");
+        verify(printStream,atLeast(1)).println("User{" +
+                "id=" + user.getId() +
+                ", password='" + user.getPassword() + '\'' +
+                '}'+"\n"+"your checkout books: ");
     }
 
 }

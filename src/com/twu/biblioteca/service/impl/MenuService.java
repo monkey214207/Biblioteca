@@ -1,5 +1,6 @@
 package com.twu.biblioteca.service.impl;
 
+import com.twu.biblioteca.controller.Request;
 import com.twu.biblioteca.controller.Response;
 import com.twu.biblioteca.service.IBibliotecaService;
 import com.twu.biblioteca.view.MenuPage;
@@ -13,7 +14,7 @@ public class MenuService implements IBibliotecaService {
     private int select;
 
     @Override
-    public Response exec(PrintStream printStream) {
+    public Response exec(PrintStream printStream, Request request) {
         page.print(printStream);
         Response response = new Response();
         String command = scanner.nextLine();

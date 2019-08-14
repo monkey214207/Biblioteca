@@ -1,5 +1,6 @@
 package com.twu.biblioteca.service.router;
 
+import com.twu.biblioteca.controller.Request;
 import com.twu.biblioteca.controller.Response;
 import com.twu.biblioteca.service.IBibliotecaService;
 
@@ -11,8 +12,8 @@ public class CommandRouter {
         router.put(command,service);
     }
 
-    public Response dispatch(String command){
-        IBibliotecaService service = router.get(command);
-        return service.exec(System.out);
+    public Response dispatch(String command, Request request){
+            IBibliotecaService service = router.get(command);
+            return service.exec(System.out,request);
     }
 }

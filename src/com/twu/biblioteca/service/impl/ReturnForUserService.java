@@ -3,16 +3,16 @@ package com.twu.biblioteca.service.impl;
 import com.twu.biblioteca.controller.Request;
 import com.twu.biblioteca.controller.Response;
 import com.twu.biblioteca.dao.IBibliotecaDao;
-import com.twu.biblioteca.dao.impl.MoviesDao;
+import com.twu.biblioteca.dao.impl.BooksDao;
 import com.twu.biblioteca.service.IBibliotecaService;
-import com.twu.biblioteca.view.CheckoutMoviePage;
+import com.twu.biblioteca.view.ReturnPage;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class CheckoutMovieService implements IBibliotecaService {
-    private IBibliotecaDao dao = MoviesDao.getInstance();
-    CheckoutMoviePage page = new CheckoutMoviePage();
+public class ReturnForUserService implements IBibliotecaService {
+    private IBibliotecaDao dao = BooksDao.getInstance();
+    ReturnPage page = new ReturnPage();
     private Scanner scanner = new Scanner(System.in);
 
     @Override
@@ -25,10 +25,11 @@ public class CheckoutMovieService implements IBibliotecaService {
             }catch(Exception e){
                 break;
             }
-            if(dao.checkoutABook(id)){
+            if(dao.returnABook(id)){
                 page.printSuccess(printStream);
+                request.getUser().getCheckoutBooks().remove(id);
             }
-            else{
+            else {
                 page.priintError(printStream);
             }
         }

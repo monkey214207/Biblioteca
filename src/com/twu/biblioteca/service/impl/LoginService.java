@@ -1,5 +1,6 @@
 package com.twu.biblioteca.service.impl;
 
+import com.twu.biblioteca.controller.Request;
 import com.twu.biblioteca.controller.Response;
 import com.twu.biblioteca.dao.impl.UsersDao;
 import com.twu.biblioteca.domain.User;
@@ -16,13 +17,14 @@ public class LoginService implements IBibliotecaService {
     private UsersDao dao = UsersDao.getInstance();
 
     @Override
-    public Response exec(PrintStream printStream) {
+    public Response exec(PrintStream printStream, Request request) {
         Map<String,String> userInfo = page.print(printStream);
         List<User> userList = dao.getUserList();
         boolean flag = false;
         for(User user:userList){
             if(user.getId().equals(userInfo.get("id")) & user.getPassword().equals(userInfo.get("password"))){
                 flag = true;
+                response.setUser(user);
                 break;
             }
         }

@@ -22,6 +22,7 @@ public class MenuPage {
         menuList.add("4.List of movies");
         menuList.add("5.Check out a movie");
         menuList.add("6.Return a movie");
+        menuList.add("7.my profile");
         menuList.add("#.quit");
     }
 
